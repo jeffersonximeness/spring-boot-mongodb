@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jefferson.sbmongo.domain.User;
+import com.jefferson.sbmongo.dto.UserDTO;
 import com.jefferson.sbmongo.repository.UserRepository;
 import com.jefferson.sbmongo.services.exception.ObjectNotFoundException;
 
@@ -24,5 +25,13 @@ public class UserService {
 		Optional<User> user = repository.findById(id);
 		
 		return user.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado!"));
+	}
+	
+	public User insert(User obj) {
+		return repository.insert(obj);
+	}
+	
+	public User fromDtTO(UserDTO obj) {
+		return new User(obj.getId(), obj.getName(), obj.getEmail());
 	}
 }
