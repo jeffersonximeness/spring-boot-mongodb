@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.jefferson.sbmongo.domain.Post;
 import com.jefferson.sbmongo.domain.User;
+import com.jefferson.sbmongo.dto.AuthorDTO;
 import com.jefferson.sbmongo.repository.PostRepository;
 import com.jefferson.sbmongo.repository.UserRepository;
 
@@ -32,11 +33,12 @@ public class Instantiation implements CommandLineRunner {
 		User joao = new User(null, "João", "joao@gmail.com");
 		User bob = new User(null, "Bob", "bob@gmail.com");
 		
-		Post p1 = new Post(null, sdf.parse("21/03/2018"), "Partiu viagem", "Vou viajar pra Dubai! Até logo!", maria);
-		Post p2 = new Post(null, sdf.parse("23/03/2018"), "Bom dia", "Está fazendo um bom clima.", maria);
-		
 		userRepository.saveAll(Arrays.asList(maria, joao, bob));
-		postRepository.saveAll(Arrays.asList(p1, p1));
+		
+		Post p1 = new Post(null, sdf.parse("21/03/2018"), "Partiu viagem", "Vou viajar pra Dubai! Até logo!", new AuthorDTO(maria));
+		Post p2 = new Post(null, sdf.parse("23/03/2018"), "Bom dia", "Está fazendo um bom clima.", new AuthorDTO(maria));
+		
+		postRepository.saveAll(Arrays.asList(p1, p2));
 	}
 
 }
