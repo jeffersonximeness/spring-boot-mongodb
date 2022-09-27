@@ -1,5 +1,6 @@
 package com.jefferson.sbmongo.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,13 @@ public class PostService {
 	private PostRepository repository;
 	
 	public Post findById(String id) {
-		Optional<Post> post = repository.findById(id);
+		Optional<Post> post = this.repository.findById(id);
 		
 		return post.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado!"));
+	}
+	
+	public List<Post> findByTitle(String text) {
+		System.out.println(text);
+		return this.repository.findByTitleContainingIgnoreCase(text);
 	}
 }
